@@ -11,16 +11,16 @@ var app = express();
 console.log('Hello World');
 
 /** 2) A first working Express Server */
-app.get('/', (req, res) => res.send('Hello Express'));
+// app.get('/', (request, response) => response.send('Hello Express'));
 
 /** 3) Serve an HTML file */
-
+app.get('/', (request, response) => response.sendFile(`${__dirname}/views/index.html`));
 
 /** 4) Serve static assets  */
-
+app.use(express.static(`${__dirname}/public`));
 
 /** 5) serve JSON on a specific route */
-
+app.get('/json', (request, response) => response.json({"message": "Hello json"}));
 
 /** 6) Use the .env file to configure the app */
  
