@@ -2,7 +2,10 @@ var express = require('express');
 var app = express();
 
 // --> 7)  Mount the Logger middleware here
-
+app.use((request, response, next) => {
+  console.log(`${request.method} ${request.path} - ${request.ip}`);
+  next();
+});
 
 // --> 11)  Mount the body-parser middleware  here
 
@@ -30,7 +33,13 @@ app.get('/json', (request, response) => response.json({"message": process.env.ME
 
 
 /** 8) Chaining middleware. A Time server */
-
+app.get('/now', (request, response, next) => {
+  request.time = (new Date()).toString();
+  next();
+}, (request, response) => {
+  console.log(request.time);
+  response.send({time: request.time});
+});
 
 /** 9)  Get input from client - Route parameters */
 
