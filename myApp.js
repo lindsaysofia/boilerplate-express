@@ -48,7 +48,9 @@ app.get('/:word/echo', (request, response, next) => {
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
-
+app.route('/name').get((request, response, next) => {
+  response.send({name: `${request.query.first} ${request.query.last}`});
+});
   
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
